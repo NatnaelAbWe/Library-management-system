@@ -1,7 +1,11 @@
 import "./App.css";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <div className="bg-amber-500">hello world</div>
+    </>
+  );
 }
 
 export default App;
