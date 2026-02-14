@@ -1,8 +1,17 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
+import { User } from "../../../../models/user";
 
-export const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  updateLoggedInUser(user: User): void;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({
+  updateLoggedInUser,
+}) => {};
+
+const LoginForm: React.FC = () => {
   const [error, setError] = useState<boolean>(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -64,3 +73,4 @@ export const LoginForm: React.FC = () => {
     </form>
   );
 };
+export default LoginForm;
