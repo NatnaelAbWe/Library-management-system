@@ -1,43 +1,46 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
+import React, { useRef } from "react"; // Removed unused useState
 import "./LoginForm.css";
-import { User } from "../../../../models/user";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
+import { loginUser } from "../../../../reducx/slices/AuthnicationSlices";
 
-interface LoginFormProps {
-  updateLoggedInUser(user: User): void;
-}
 
-export const LoginForm: React.FC<LoginFormProps> = () => {
-  const [error, setError] = useState<boolean>(false);
-
+export const LoginForm: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const auth = useSelector((state: RootState) => state.authentication);
+  const dispatch: AppDispatch = useDispatch(); // Fixed naming to 'dispatch' (lowercase is standard)
+
   const handleLoginUser = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (emailRef && emailRef.current && passwordRef && passwordRef.current) {
-      try {
-        const req = await axios.post("http://localhost:8000/auth/login", {
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        });
 
-        setError(false);
-        console.log(req.data.user);
-      } catch (e) {
-        setError(true);
-      }
+    // 1. Logic to extract values from refs
+    if (emailRef.current && passwordRef.current) {
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
+
+      // 2. Dispatching the thunk you created earlier
+      dispatch(
+        loginUser({
+          email,
+          password,
+        }),
+      );
     }
   };
-
   return (
     <form className="login-form">
       <h2>Please Login</h2>
-      {error ? (
+
+      {/* 3. Improved Error Display */}
+      {auth.error && (
         <p className="login-form-error">Username or password incorrect</p>
-      ) : (
-        <></>
       )}
+
+      {/* 4. Optional: Loading State UI */}
+      {auth.loading && <p>Logging in...</p>}
+
       <div className="login-form-input-group">
         <h6>Email</h6>
         <input
@@ -59,14 +62,22 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
           ref={passwordRef}
         />
       </div>
-      <button className="login-form-submit" onClick={handleLoginUser}>
+
+      {/* 5. Disabled button while loading to prevent double-clicks */}
+      <button
+        className="login-form-submit"
+        onClick={handleLoginUser}
+        disabled={auth.loading}
+      >
         Login
       </button>
+
       <p>
         Don't have an account?
-        <span className="login-form-register">Create one here.</span>
+        <span className="login-form-register"> Create one here.</span>
       </p>
     </form>
   );
 };
+
 export default LoginForm;

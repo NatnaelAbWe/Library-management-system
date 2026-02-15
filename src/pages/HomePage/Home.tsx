@@ -5,7 +5,6 @@ import { User } from "../../models/user";
 
 interface HomePageProps {
   displayLogin: boolean;
-  updateLoggedInUser(user: User): void;
 }
 
 const Home = (props: HomePageProps): JSX.Element => {
@@ -13,7 +12,7 @@ const Home = (props: HomePageProps): JSX.Element => {
     <div className="page">
       home Page
       {props.displayLogin ? (
-        <LoginForm updateLoggedInUser={props.updateLoggedInUser} />
+        <LoginForm />
       ) : (
         <></>
       )}
