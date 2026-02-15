@@ -7,11 +7,7 @@ interface LoginFormProps {
   updateLoggedInUser(user: User): void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({
-  updateLoggedInUser,
-}) => {};
-
-const LoginForm: React.FC = () => {
+export const LoginForm: React.FC<LoginFormProps> = () => {
   const [error, setError] = useState<boolean>(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
