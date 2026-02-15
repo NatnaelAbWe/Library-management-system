@@ -6,9 +6,9 @@ import { RootState } from "./reducx/ReducxStrore";
 
 function App() {
   const [displayLogin, setDisplayLogin] = useState<boolean>(true);
-  const loggedInUser = useSelector((state:RootState) => state.authentication.loggedInUser)
-
-  )
+  const loggedInUser = useSelector(
+    (state: RootState) => state.authentication.loggedInUser,
+  );
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -26,5 +26,3 @@ function state(state: unknown): unknown {
 }
 
 export default App;
-
-

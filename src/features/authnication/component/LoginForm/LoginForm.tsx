@@ -1,82 +1,97 @@
-import React, { useRef } from "react"; // Removed unused useState
+import React, { useRef, useState } from "react";
 import "./LoginForm.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { loginUser } from "../../../../reducx/slices/AuthnicationSlices";
 
-
 export const LoginForm: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const auth = useSelector((state: RootState) => state.authentication);
-  const dispatch: AppDispatch = useDispatch(); // Fixed naming to 'dispatch' (lowercase is standard)
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleLoginUser = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleLoginUser = async (e: React.FormEvent) => {
+    e.preventDefault(); // Works better on form submit than button click
 
-    // 1. Logic to extract values from refs
     if (emailRef.current && passwordRef.current) {
-      const email = emailRef.current.value;
-      const password = passwordRef.current.value;
-
-      // 2. Dispatching the thunk you created earlier
       dispatch(
         loginUser({
-          email,
-          password,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
         }),
       );
     }
   };
+
   return (
-    <form className="login-form">
-      <h2>Please Login</h2>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleLoginUser}>
+        <div className="login-header">
+          <h2>Welcome Back</h2>
+          <p>Please enter your details to sign in</p>
+        </div>
 
-      {/* 3. Improved Error Display */}
-      {auth.error && (
-        <p className="login-form-error">Username or password incorrect</p>
-      )}
+        {auth.error && (
+          <div className="error-banner">
+            <span className="icon">⚠️</span>
+            Username or password incorrect
+          </div>
+        )}
 
-      {/* 4. Optional: Loading State UI */}
-      {auth.loading && <p>Logging in...</p>}
+        <div className="input-wrapper">
+          <label htmlFor="email">Email Address</label>
+          <input
+            id="email"
+            type="email"
+            className={`login-input ${auth.error ? "input-error" : ""}`}
+            placeholder="name@company.com"
+            required
+            ref={emailRef}
+          />
+        </div>
 
-      <div className="login-form-input-group">
-        <h6>Email</h6>
-        <input
-          className="login-form-input"
-          placeholder="email"
-          name="email"
-          required
-          ref={emailRef}
-        />
-      </div>
-      <div className="login-form-input-group">
-        <h6>Password</h6>
-        <input
-          className="login-form-input"
-          placeholder="password"
-          name="password"
-          type="password"
-          required
-          ref={passwordRef}
-        />
-      </div>
+        <div className="input-wrapper">
+          <div className="label-row">
+            <label htmlFor="password">Password</label>
+          </div>
+          <div className="password-input-container">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              className={`login-input ${auth.error ? "input-error" : ""}`}
+              placeholder="••••••••"
+              required
+              ref={passwordRef}
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+          <div className="forgot-password">Forgot Password?</div>
+        </div>
 
-      {/* 5. Disabled button while loading to prevent double-clicks */}
-      <button
-        className="login-form-submit"
-        onClick={handleLoginUser}
-        disabled={auth.loading}
-      >
-        Login
-      </button>
+        <button
+          type="submit"
+          className={`login-submit ${auth.loading ? "loading" : ""}`}
+          disabled={auth.loading}
+        >
+          {auth.loading ? <div className="spinner"></div> : "Sign In"}
+        </button>
 
-      <p>
-        Don't have an account?
-        <span className="login-form-register"> Create one here.</span>
-      </p>
-    </form>
+        <p className="register-text">
+          Don't have an account?
+          <span type="button" className="register-link">
+            Create one here
+          </span>
+        </p>
+      </form>
+    </div>
   );
 };
 
