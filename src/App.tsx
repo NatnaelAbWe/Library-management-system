@@ -1,15 +1,14 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Home from "./pages/HomePage/Home";
-import { User } from "./models/user";
+import { useSelector, UseSelector } from "react-redux";
+import { RootState } from "./reducx/ReducxStrore";
 
 function App() {
   const [displayLogin, setDisplayLogin] = useState<boolean>(true);
-  const [loggedInUser, setLoggedInUser] = useState<User>();
+  const loggedInUser = useSelector((state:RootState) => state.authentication.loggedInUser)
 
-  const updateLoggedInUser = (user: User) => {
-    setLoggedInUser(user);
-  };
+  )
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -17,12 +16,15 @@ function App() {
 
   return (
     <div>
-      <Home
-        displayLogin={displayLogin}
-        updateLoggedInUser={updateLoggedInUser}
-      />
+      <Home displayLogin={displayLogin} />
     </div>
   );
 }
 
+function state(state: unknown): unknown {
+  throw new Error("Function not implemented.");
+}
+
 export default App;
+
+
