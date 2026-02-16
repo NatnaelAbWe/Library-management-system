@@ -5,7 +5,6 @@ import { useSelector, UseSelector } from "react-redux";
 import { RootState } from "./reducx/ReducxStrore";
 
 function App() {
-  const [displayLogin, setDisplayLogin] = useState<boolean>(true);
   const loggedInUser = useSelector(
     (state: RootState) => state.authentication.loggedInUser,
   );
@@ -16,7 +15,7 @@ function App() {
 
   return (
     <div>
-      <Home displayLogin={displayLogin} />
+      <Home />
     </div>
   );
 }
