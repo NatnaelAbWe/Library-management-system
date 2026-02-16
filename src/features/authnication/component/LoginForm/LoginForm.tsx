@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { loginUser } from "../../../../reducx/slices/AuthnicationSlices";
 
-export const LoginForm: React.FC = () => {
+interface LoginFormPops {
+  toggleRegister(): void;
+}
+
+export const LoginForm: React.FC<LoginFormPops> = ({ toggleRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -86,7 +90,11 @@ export const LoginForm: React.FC = () => {
 
         <p className="register-text">
           Don't have an account?
-          <span type="button" className="register-link">
+          <span
+            type="button"
+            className="register-link"
+            onClick={toggleRegister}
+          >
             Create one here
           </span>
         </p>

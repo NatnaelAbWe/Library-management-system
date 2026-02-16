@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducx/ReducxStrore";
-import LoginForm from "../../features/authnication/component/LoginForm/LoginForm";
 import { JSX } from "react";
+import { LoginRegisterModal } from "../../features/authnication";
 
 export default function HomePage(): JSX.Element {
   const displayLogin = useSelector(
@@ -11,7 +11,7 @@ export default function HomePage(): JSX.Element {
   return (
     <div className="page">
       Home page
-      {displayLogin ? <LoginForm /> : <></>}
+      {displayLogin ? <LoginRegisterModal /> : <></>}
     </div>
   );
 }
