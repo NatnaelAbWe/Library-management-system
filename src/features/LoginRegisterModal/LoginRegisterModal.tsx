@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../reducx/ReducxStrore";
 import { useEffect, useState, useCallback } from "react"; // Added useCallback import
 import { setDisplayLogin } from "../../reducx/slices/modelslices";
 import LoginForm from "../authnication/component/LoginForm/LoginForm";
+import { RegisterForm } from "../authnication/component/RegisterFrom/RegisterForm";
 
 export const LoginRegisterModal: React.FC = () => {
   const authState = useSelector((state: RootState) => state.authentication);
@@ -31,7 +32,13 @@ export const LoginRegisterModal: React.FC = () => {
 
   return (
     <Modal
-      content={login ? <LoginForm toggleRegister={toggleLogin} /> : <></>}
+      content={
+        login ? (
+          <LoginForm toggleRegister={toggleLogin} />
+        ) : (
+          <RegisterForm toggleLogin={toggleLogin} />
+        )
+      }
       toggleModal={closeModal}
     />
   );
