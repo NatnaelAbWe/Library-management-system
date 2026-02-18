@@ -4,6 +4,7 @@ import "./LayoutPage.css";
 import { RootState } from "../../reducx/ReducxStrore";
 import { LoginRegisterModal } from "../../features/authnication";
 import { Navbar } from "../../features/Navigation";
+import { Footer } from "../../features/Navigation";
 
 export default function LayoutPage() {
   const state = useSelector((state: RootState) => state.modeal);
@@ -13,7 +14,7 @@ export default function LayoutPage() {
       {state.displayLogin && <LoginRegisterModal />}
       <Navbar />
       <Outlet />
-      <h1>FOOTER</h1>
+      <Footer />
     </div>
   );
 }
