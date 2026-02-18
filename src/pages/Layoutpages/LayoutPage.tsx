@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import "./LayoutPage.css";
-import { RootState } from "../../reducx/ReducxStrore";
+import type { RootState } from "../../reducx/ReducxStrore";
 import { LoginRegisterModal } from "../../features/authnication";
 import { Navbar } from "../../features/Navigation";
 import { Footer } from "../../features/Navigation";

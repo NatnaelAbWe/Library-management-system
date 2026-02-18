@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
+import type { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { Book, Search } from "@mui/icons-material";
 import { setDisplayLogin } from "../../../../reducx/slices/modelslices";
 
