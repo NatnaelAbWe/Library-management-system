@@ -1,0 +1,92 @@
+/* Page Wrapper */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #eef2f7);
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* Main Container */
+.page-container {
+  width: 100%;
+  max-width: 1100px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+/* Title */
+.page-container h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #222;
+  text-align: center;
+}
+
+/* Columns Layout */
+.profile-page-cols {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Left Column */
+.profile-page-left-column {
+  flex: 1;
+  min-width: 280px;
+  background: #f9fafc;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e6e9ef;
+}
+
+/* Right Column */
+.profile-page-right-column {
+  flex: 2;
+  min-width: 280px;
+  background: #f9fafc;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e6e9ef;
+}
+
+/* Example Card Style (Reusable) */
+.profile-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.profile-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.profile-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 25px;
+  }
+
+  .profile-page-cols {
+    flex-direction: column;
+  }
+
+  .page-container h1 {
+    font-size: 22px;
+  }
+}
