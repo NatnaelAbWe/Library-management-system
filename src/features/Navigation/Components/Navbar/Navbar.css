@@ -1,0 +1,96 @@
+/* Navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo Section */
+.navbar-logo-section {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.navbar-logo-section h1 {
+  margin-left: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Options Section */
+.navbar-option-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-option {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-option h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.navbar-option:hover {
+  color: #007bff; /* Primary brand color */
+}
+
+/* Search Box */
+.navbar-search-box {
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f4;
+  padding: 5px 15px;
+  border-radius: 25px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.navbar-search-box:focus-within {
+  background-color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.navbar-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 8px;
+  width: 250px;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar-search-input {
+    width: 150px;
+  }
+
+  .navbar-logo-section h1 {
+    display: none; /* Hide text on small screens, keep icon */
+  }
+
+  .navbar-option-section {
+    gap: 1rem;
+  }
+}

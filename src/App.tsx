@@ -4,6 +4,7 @@ import Home from "./pages/HomePage/Home";
 import { useSelector } from "react-redux";
 import { RootState } from "./reducx/ReducxStrore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LayoutPage from "./pages/Layoutpages/LayoutPage";
 
 function App() {
   const loggedInUser = useSelector(
@@ -17,11 +18,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="" element={<></>} />
-          <Route path="/catalog" element={<></>} />
-          <Route path="/resource/:barcode" element={<></>} />
-          <Route path="/profile/:userId" element={<></>} />
+        <Route path="/" element={<LayoutPage />}>
+          <Route path="" element={<Home />} />
+          {/* <Route path="/catalog" element={<Catalog />} /> */}
+          {/* <Route path="/resource/:barcode" element={<Resource />} /> */}
+          {/* <Route path="/profile/:userId" element={<UserProfile />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
