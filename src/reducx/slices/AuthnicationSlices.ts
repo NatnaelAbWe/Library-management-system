@@ -57,20 +57,14 @@ export const fetchUser = createAsyncThunk(
   "auth/fetch",
   async (payload: FetchUserPayload, thunkAPI) => {
     try {
+      // Remove /auth from the URL
       const req = await axios.get(
-        `http://localhost:8000/auth/users/${payload.userId}`,
+        `http://localhost:8000/users/${payload.userId}`,
       );
       const user = req.data.user;
-
-      return {
-        user,
-        property: payload.property,
-      };
+      return { user, property: payload.property };
     } catch (e: any) {
-      // DO NOT return the whole 'e'. Return the message string instead.
-      return thunkAPI.rejectWithValue(
-        e.response?.data?.message || e.message || "Failed to fetch user",
-      );
+      return thunkAPI.rejectWithValue(e.response?.data?.message || e.message);
     }
   },
 );

@@ -6,6 +6,7 @@ import type { AppDispatch, RootState } from "./reducx/ReducxStrore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LayoutPage from "./pages/Layoutpages/LayoutPage";
 import { fetchUser } from "./reducx/slices/AuthnicationSlices";
+import ProfilePage from "./pages/ProfilePages/ProfilePage";
 
 function App() {
   const loggedInUser = useSelector(
@@ -33,7 +34,7 @@ function App() {
           <Route path="" element={<Home />} />
           {/* <Route path="/catalog" element={<Catalog />} /> */}
           {/* <Route path="/resource/:barcode" element={<Resource />} /> */}
-          {/* <Route path="/profile/:userId" element={<UserProfile />} /> */}
+          <Route path="/profile/:userId" element={<ProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
