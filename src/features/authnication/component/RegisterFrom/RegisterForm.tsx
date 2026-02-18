@@ -14,7 +14,7 @@ interface RegisterFormProps {
 export const RegisterForm: React.FC<RegisterFormProps> = ({ toggleLogin }) => {
   const authState = useSelector((state: RootState) => state.authentication);
   const dispatch: AppDispatch = useDispatch();
-
+ 
   const firstRef = useRef<HTMLInputElement>(null);
   const lastRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -35,7 +35,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ toggleLogin }) => {
           lastName: lastRef.current.value,
           email: emailRef.current.value,
           password: passwordRef.current.value,
-          type: "EMPLOYEE",
+          type: "PATRON",
         }),
       );
     }
