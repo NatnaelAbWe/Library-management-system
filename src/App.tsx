@@ -1,19 +1,30 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Home from "./pages/HomePage/Home";
-import { useSelector } from "react-redux";
-import { RootState } from "./reducx/ReducxStrore";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "./reducx/ReducxStrore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LayoutPage from "./pages/Layoutpages/LayoutPage";
+import { fetchUser } from "./reducx/slices/AuthnicationSlices";
 
 function App() {
   const loggedInUser = useSelector(
     (state: RootState) => state.authentication.loggedInUser,
   );
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    console.log(loggedInUser);
-  }, [loggedInUser]);
+    const userId = localStorage.getItem("userId");
+
+    if (userId && !loggedInUser) {
+      dispatch(
+        fetchUser({
+          userId,
+          property: "LoggedInUser",
+        }),
+      );
+    }
+  }, [dispatch, loggedInUser]);
 
   return (
     <BrowserRouter>
@@ -27,10 +38,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
-
-function state(state: unknown): unknown {
-  throw new Error("Function not implemented.");
 }
 
 export default App;

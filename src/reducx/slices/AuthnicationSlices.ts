@@ -1,13 +1,19 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  User,
-  type LoginUserPayload,
-  type RegisterUserPayLoad,
-} from "../../models/user";
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
+import type {
+  User,
+  LoginUserPayload,
+  RegisterUserPayLoad,
+  FetchUserPayload,
+} from "../../models/user";
 
 interface AuthenticationSliceState {
   loggedInUser: User | undefined;
+  profileUser: User | undefined;
   loading: boolean;
   error: boolean;
   registerSuccess: boolean;
@@ -15,6 +21,7 @@ interface AuthenticationSliceState {
 
 const initialState: AuthenticationSliceState = {
   loggedInUser: undefined,
+  profileUser: undefined,
   loading: false,
   error: false,
   registerSuccess: false,
@@ -46,15 +53,41 @@ export const registerUser = createAsyncThunk(
   },
 );
 
+export const fetchUser = createAsyncThunk(
+  "auth/fetch",
+  async (payload: FetchUserPayload, thunkAPI) => {
+    try {
+      const req = await axios.get(
+        `http://localhost:8000/auth/users/${payload.userId}`,
+      );
+      const user = req.data.user;
+
+      return {
+        user,
+        property: payload.property,
+      };
+    } catch (e: any) {
+      // DO NOT return the whole 'e'. Return the message string instead.
+      return thunkAPI.rejectWithValue(
+        e.response?.data?.message || e.message || "Failed to fetch user",
+      );
+    }
+  },
+);
+
 // --- Slice ---
 
 export const AuthenticationSlice = createSlice({
   name: "authentication",
   initialState,
   reducers: {
-    // Synchronous action to reset success state
     resetRegisterSuccess: (state) => {
       state.registerSuccess = false;
+    },
+    // Added resetUser to handle manual logout
+    resetUser: (state) => {
+      state.loggedInUser = undefined;
+      localStorage.removeItem("userId");
     },
   },
   extraReducers: (builder) => {
@@ -67,6 +100,8 @@ export const AuthenticationSlice = createSlice({
       loginUser.fulfilled,
       (state, action: PayloadAction<User>) => {
         state.loggedInUser = action.payload;
+        // PERSISTENCE: Save ID to localStorage so refresh doesn't log you out
+        localStorage.setItem("userId", action.payload._id);
         state.loading = false;
         state.error = false;
       },
@@ -92,10 +127,32 @@ export const AuthenticationSlice = createSlice({
       state.error = true;
       state.registerSuccess = false;
     });
+
+    /* --- Fetch User Cases --- */
+    builder.addCase(fetchUser.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      const { user, property } = action.payload;
+
+      // Note: Ensure your dispatch uses 'LoggedInUser' or 'ProfileUser'
+      // to match your TypeScript model exactly.
+      if (property === "ProfileUser") {
+        state.profileUser = user;
+      } else if (property === "LoggedInUser") {
+        state.loggedInUser = user;
+      }
+
+      state.loading = false;
+      state.error = false;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
+      state.loading = false;
+      state.error = true;
+    });
   },
 });
 
-// --- Exports ---
-
-export const { resetRegisterSuccess } = AuthenticationSlice.actions;
+export const { resetRegisterSuccess, resetUser } = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;
