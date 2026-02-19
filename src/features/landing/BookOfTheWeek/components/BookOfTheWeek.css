@@ -1,0 +1,30 @@
+.book-of-the-week {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.book-of-the-week h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.book-of-the-week .book-information {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .book-of-the-week .book-information {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
