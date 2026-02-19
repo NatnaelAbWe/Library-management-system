@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProfilePage.css";
-import "./ProfilePage.css";
 import type { AppDispatch, RootState } from "../../reducx/ReducxStrore";
 import { fetchUser } from "../../reducx/slices/AuthnicationSlices";
+import { UpdateUserForm } from "../../features/profile";
 
 export default function ProfilePage() {
   const loggedInUser = useSelector(
@@ -41,7 +41,7 @@ export default function ProfilePage() {
         </h1>
         <div className="profile-page-cols">
           <div className="profile-page-left-column">
-            {/* Content for left column */}
+            <UpdateUserForm />
           </div>
           <div className="profile-page-right-column">
             {/* Content for right column */}

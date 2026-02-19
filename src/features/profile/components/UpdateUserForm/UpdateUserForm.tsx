@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Create } from "@mui/icons-material";
 import "./UpdateUserForm.css";
 import type { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import type { User } from "../../../../models/user";
+import { updateUser } from "../../../../reducx/slices/AuthnicationSlices";
+import { resetUser } from "../../../../reducx/slices/AuthnicationSlices";
 
 export const UpdateUserForm: React.FC = () => {
   const userState = useSelector((state: RootState) => state.authentication);
@@ -15,6 +17,36 @@ export const UpdateUserForm: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const updateUserState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayUpdate(true);
+    if (e.target.value && e.target.name && user) {
+      setUser({
+        ...user,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
+  const submitUpdatedUser = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (user) dispatch(updateUser(user));
+    setDisplayUpdate(false);
+  };
+
+  const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    localStorage.removeItem("userId");
+    dispatch(resetUser("loggedInUser"));
+    dispatch(resetUser("profileUser"));
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (userState.profileUser) {
+      setUser(userState.profileUser);
+    }
+  }, [userState.profileUser]);
+
   return (
     <form className="update-user-form">
       <div className="update-user-input-group">
@@ -23,7 +55,7 @@ export const UpdateUserForm: React.FC = () => {
           className="update-user-input"
           name="firstName"
           value={user?.firstName}
-          onChange={() => {}}
+          onChange={updateUserState}
           disabled={userState.loggedInUser?._id !== userState.profileUser?._id}
         />
         {userState.loggedInUser?._id === userState.profileUser?._id && (
@@ -42,7 +74,7 @@ export const UpdateUserForm: React.FC = () => {
           className="update-user-input"
           name="lastName"
           value={user?.lastName}
-          onChange={() => {}}
+          onChange={updateUserState}
           disabled={userState.loggedInUser?._id !== userState.profileUser?._id}
         />
         {userState.loggedInUser?._id === userState.profileUser?._id && (
@@ -61,7 +93,7 @@ export const UpdateUserForm: React.FC = () => {
           className="update-user-input"
           name="email"
           value={user?.email}
-          onChange={() => {}}
+          onChange={updateUserState}
           disabled={userState.loggedInUser?._id !== userState.profileUser?._id}
         />
         {userState.loggedInUser?._id === userState.profileUser?._id && (
@@ -74,6 +106,20 @@ export const UpdateUserForm: React.FC = () => {
           />
         )}
       </div>
+      {displayUpdate ? (
+        <button className="profile-button" onClick={submitUpdatedUser}>
+          Update Profile
+        </button>
+      ) : (
+        <></>
+      )}
+      {userState.loggedInUser?._id === userState.profileUser?._id ? (
+        <button className="profile-button" onClick={logout}>
+          Logout of Account
+        </button>
+      ) : (
+        <></>
+      )}
     </form>
   );
 };

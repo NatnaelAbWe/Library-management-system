@@ -93,6 +93,7 @@ export const AuthenticationSlice = createSlice({
     // Added resetUser to handle manual logout
     resetUser: (state) => {
       state.loggedInUser = undefined;
+      state.profileUser = undefined;
       localStorage.removeItem("userId");
     },
   },
