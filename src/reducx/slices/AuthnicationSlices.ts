@@ -69,6 +69,18 @@ export const fetchUser = createAsyncThunk(
   },
 );
 
+export const updateUser = createAsyncThunk(
+  "auth/update",
+  async (payload: User, thunkAPI) => {
+    try {
+      const req = await axios.put("http://localhost:8000/users", payload);
+      return req.data.user;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
+    }
+  },
+);
+
 // --- Slice ---
 
 export const AuthenticationSlice = createSlice({
@@ -142,6 +154,38 @@ export const AuthenticationSlice = createSlice({
       state.error = false;
     });
     builder.addCase(fetchUser.rejected, (state) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+    /* --- Update User Cases --- */
+    builder.addCase(updateUser.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+    });
+
+    builder.addCase(
+      updateUser.fulfilled,
+      (state, action: PayloadAction<User>) => {
+        // If the updated user is the one currently logged in, update the state
+        if (
+          state.loggedInUser &&
+          state.loggedInUser._id === action.payload._id
+        ) {
+          state.loggedInUser = action.payload;
+        }
+
+        // If the updated user is the one being viewed on a profile page, update that too
+        if (state.profileUser && state.profileUser._id === action.payload._id) {
+          state.profileUser = action.payload;
+        }
+
+        state.loading = false;
+        state.error = false;
+      },
+    );
+
+    builder.addCase(updateUser.rejected, (state) => {
       state.loading = false;
       state.error = true;
     });
