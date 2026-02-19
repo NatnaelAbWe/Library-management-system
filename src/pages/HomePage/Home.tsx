@@ -1,6 +1,7 @@
 import { BookOfTheWeek } from "../../features/landing";
 import "./Home.css";
 import type { JSX } from "@emotion/react/jsx-runtime";
+import { UpcomingEvents } from "../../features/landing";
 
 export default function HomePage(): JSX.Element {
   return (
@@ -8,6 +9,7 @@ export default function HomePage(): JSX.Element {
       <div className="home-page-container">
         <div className="home-page-left">
           <BookOfTheWeek />
+          <UpcomingEvents />
         </div>
       </div>
     </div>
