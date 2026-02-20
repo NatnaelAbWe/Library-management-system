@@ -1,0 +1,42 @@
+.contact-us {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-us h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.contact-us h4 {
+  margin: 15px 0 5px 0;
+  font-size: 1.1rem;
+  color: #34495e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-us p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.contact-us-divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 15px 0;
+}
+
+/* Optional: Subtle hover effect for the container */
+.contact-us:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
