@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import libraryCard from "../../../../assets/librarycard.png";
+import libraryCard from "../../../assets/library_card_plastic2.png";
 import "./LibraryCard.css";
 import type { AppDispatch } from "../../../reducx/ReducxStrore";
 import { setDisplayLibraryCard } from "../../../reducx/slices/modelslices";
