@@ -19,9 +19,8 @@ export const fetchAllBooks = createAsyncThunk(
   "book/fetchAll",
   async (_, thunkAPI) => {
     try {
-      // Replace with your actual API endpoint
-      const res = await axios.get("http://localhost:8000/books");
-      return res.data;
+      const res = await axios.get("http://localhost:8000/book");
+      return res.data; // This returns { message: string, count: number, books: Book[] }
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -38,14 +37,11 @@ export const BookSlice = createSlice({
       state.loading = true;
       state.error = false;
     });
-    builder.addCase(
-      fetchAllBooks.fulfilled,
-      (state, action: PayloadAction<Book[]>) => {
-        state.books = action.payload;
-        state.loading = false;
-        state.error = false;
-      },
-    );
+    builder.addCase(fetchAllBooks.fulfilled, (state, action) => {
+      state.books = action.payload;
+      state.loading = false;
+      state.error = false;
+    });
     builder.addCase(fetchAllBooks.rejected, (state) => {
       state.loading = false;
       state.error = true;

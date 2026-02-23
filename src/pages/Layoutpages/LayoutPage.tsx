@@ -7,7 +7,7 @@ import { Navbar } from "../../features/Navigation";
 import { Footer } from "../../features/Navigation";
 
 export default function LayoutPage() {
-  const state = useSelector((state: RootState) => state.modeal);
+  const state = useSelector((state: RootState) => state.modal);
 
   return (
     <div className="layout-page">
