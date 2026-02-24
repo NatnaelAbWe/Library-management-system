@@ -1,0 +1,54 @@
+.catalog-search-page-navigator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 2rem 0;
+  font-family: Arial, sans-serif;
+  user-select: none;
+}
+
+.catalog-search-page-navigator-navigate {
+  cursor: pointer;
+  font-weight: 600;
+  color: #007bff;
+  transition:
+    color 0.2s ease,
+    transform 0.1s ease;
+  padding: 5px 10px;
+}
+
+.catalog-search-page-navigator-navigate:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.catalog-search-page-navigator-navigate:active {
+  transform: scale(0.95);
+}
+
+.catalog-search-page-number {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.catalog-search-page-number p {
+  cursor: pointer;
+  padding: 5px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.catalog-search-page-number p:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+  color: #007bff;
+}
+.catalog-search-page-number p.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  cursor: default;
+}
