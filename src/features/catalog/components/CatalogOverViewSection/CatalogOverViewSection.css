@@ -1,0 +1,38 @@
+.catalog-overview-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.catalog-overview-section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid #efefef;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+.catalog-overview-section-top h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+  text-transform: capitalize;
+}
+.catalog-overview-section-more {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.catalog-overview-section-more:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.catalog-overview-section:empty {
+  height: 300px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
