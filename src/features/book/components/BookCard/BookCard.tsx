@@ -1,0 +1,27 @@
+import { useNavigate } from "react-router-dom";
+import "./BookCard.css";
+import type { Book } from "../../../../models/Book";
+import { mapAuthorsToString } from "../../utils/BookUtils";
+
+interface BookCardProps {
+  book: Book;
+}
+
+export const BookCard: React.FC<BookCardProps> = ({ book }) => {
+  const navigate = useNavigate();
+
+  const displayBook = () => {
+    navigate(`/resource/${book.barcode}`);
+  };
+
+  return (
+    <div id="book-card" className="book-card" onClick={displayBook}>
+      <img className="book-card-cover" src={book.cover} />
+      <div className="book-card-info">
+        <h1 className="book-card-tite">{book.title}</h1>
+        <h3 className="book-card-author">{mapAuthorsToString(book)}</h3>
+        <p className="book-card-descrip">{book.description}</p>
+      </div>
+    </div>
+  );
+};

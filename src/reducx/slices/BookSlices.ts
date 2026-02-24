@@ -20,8 +20,10 @@ export const fetchAllBooks = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await axios.get("http://localhost:8000/book");
+      console.log("Api response:", res.data);
       return res.data; // This returns { message: string, count: number, books: Book[] }
     } catch (e) {
+      console.log("api error", e);
       return thunkAPI.rejectWithValue(e);
     }
   },
@@ -38,7 +40,7 @@ export const BookSlice = createSlice({
       state.error = false;
     });
     builder.addCase(fetchAllBooks.fulfilled, (state, action) => {
-      state.books = action.payload;
+      state.books = action.payload.books;
       state.loading = false;
       state.error = false;
     });
