@@ -5,6 +5,7 @@ import "./CatalogSearch.css";
 import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { queryBooks } from "../../../../reducx/slices/BookSlices";
 import { BookCard } from "../../../book";
+import { CatalogAdvancedSearch } from "../CatalogAdvancedSearch/CatalogAdvancedSearch";
 
 export const CatalogSearch: React.FC = () => {
   const bookState = useSelector((state: RootState) => state.book);
@@ -19,7 +20,7 @@ export const CatalogSearch: React.FC = () => {
   return (
     <div className="catalog-search">
       <div className="catalog-search-advanced-search-section">
-        {/* Advanced search inputs would go here */}
+        <CatalogAdvancedSearch />
       </div>
       {!bookState.loading ? (
         <>
