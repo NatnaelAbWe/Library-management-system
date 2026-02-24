@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { queryBooks } from "../../../../reducx/slices/BookSlices";
 import { BookCard } from "../../../book";
 import { CatalogAdvancedSearch } from "../CatalogAdvancedSearch/CatalogAdvancedSearch";
+import { CatalogSearchPageNavigator } from "../CatalogSearchPageNavigator/CatalogSearchPageNavigator";
 
 export const CatalogSearch: React.FC = () => {
   const bookState = useSelector((state: RootState) => state.book);
@@ -33,7 +34,9 @@ export const CatalogSearch: React.FC = () => {
               <BookCard key={book.barcode} book={book} />
             ))}
           </div>
-          <div className="catalog-search-pages"></div>
+          <div className="catalog-search-pages">
+            <CatalogSearchPageNavigator />
+          </div>
         </>
       ) : (
         <></>
