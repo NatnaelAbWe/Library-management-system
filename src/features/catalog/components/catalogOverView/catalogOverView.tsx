@@ -4,6 +4,8 @@ import "./catalogOverView.css";
 import { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { fetchAllBooks } from "../../../../reducx/slices/BookSlices";
 import { generateRandomGenres } from "../../utils/CatalogUtils";
+import { CatalogOverviewSection } from "../CatalogOverViewSection/CatalogOverViewSection";
+import { getRandomBooksByGenre } from "../../utils/CatalogUtils";
 
 export const CatalogOverview: React.FC = () => {
   const bookState = useSelector((state: RootState) => state.book);
@@ -29,6 +31,15 @@ export const CatalogOverview: React.FC = () => {
             Browse our selected books below, or search for something using the
             top navigation bar.
           </h4>
+          {genres.map((genre) => {
+            return (
+              <CatalogOverviewSection
+                key={genre}
+                books={getRandomBooksByGenre(genre, bookState.books)}
+                label={genre}
+              />
+            );
+          })}
         </div>
       ) : (
         <></>

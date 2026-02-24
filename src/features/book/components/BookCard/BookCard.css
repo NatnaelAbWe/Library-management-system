@@ -1,6 +1,6 @@
 .book-card {
   width: 280px;
-  height: 480px;
+  height: auto;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
@@ -61,6 +61,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  height: auto;
 }
 
 @media (max-width: 600px) {
