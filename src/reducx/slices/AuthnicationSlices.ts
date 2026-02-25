@@ -14,6 +14,7 @@ import type {
 interface AuthenticationSliceState {
   loggedInUser: User | undefined;
   profileUser: User | undefined;
+  libraryCard: string;
   loading: boolean;
   error: boolean;
   registerSuccess: boolean;
@@ -22,6 +23,7 @@ interface AuthenticationSliceState {
 const initialState: AuthenticationSliceState = {
   loggedInUser: undefined,
   profileUser: undefined,
+  libraryCard: "",
   loading: false,
   error: false,
   registerSuccess: false,
@@ -81,6 +83,21 @@ export const updateUser = createAsyncThunk(
   },
 );
 
+export const getLibraryCard = createAsyncThunk(
+  "auth/librarycard",
+  async (userId: string, thunkAPI) => {
+    try {
+      const req = await axios.post("http://localhost:3000/card/", {
+        user: userId,
+      });
+
+      return req.data.libraryCard;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
+    }
+  },
+);
+
 // --- Slice ---
 
 export const AuthenticationSlice = createSlice({
@@ -134,6 +151,23 @@ export const AuthenticationSlice = createSlice({
       state.error = true;
       state.registerSuccess = false;
     });
+
+    builder
+      .addCase(getLibraryCard.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        getLibraryCard.fulfilled,
+        (state, action: PayloadAction<ILibraryCardModel>) => {
+          state.loading = false;
+          state.card = action.payload;
+        },
+      )
+      .addCase(getLibraryCard.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
 
     /* --- Fetch User Cases --- */
     builder.addCase(fetchUser.pending, (state) => {

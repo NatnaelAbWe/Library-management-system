@@ -1,0 +1,69 @@
+.register-library-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  margin: 20px auto;
+  text-align: center;
+}
+.register-library-card-text {
+  color: #333333;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+h3.register-library-card-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+h4.register-library-card-text,
+h5.register-library-card-text {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #5f6769;
+}
+p.register-library-card-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: #f0f4f8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px dashed #3498db;
+  color: #2980b9;
+}
+.register-library-modal-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+}
+
+.register-library-modal-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+}
+
+.register-library-modal-button:active {
+  transform: translateY(0);
+}
+@media (max-width: 480px) {
+  .register-library-card-container {
+    margin: 10px;
+    padding: 1.5rem;
+  }
+}
