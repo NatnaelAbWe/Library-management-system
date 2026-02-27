@@ -1,3 +1,6 @@
+import type { LoanRecord } from "./LoanRecord";
+import type { User } from "./user";
+
 export type Book = {
   _id: string;
   barcode: string;
@@ -10,5 +13,16 @@ export type Book = {
   publisher: string;
   pages: number;
   genre: string;
-  records: [];
+  records: LoanRecord[];
+};
+
+export type CheckoutBookPayload = {
+  book: Book;
+  libraryCard: string;
+  employee: User;
+};
+
+export type CheckinBookPayload = {
+  book: Book;
+  employee: User;
 };
