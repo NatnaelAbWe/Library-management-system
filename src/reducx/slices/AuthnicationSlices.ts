@@ -87,13 +87,16 @@ export const getLibraryCard = createAsyncThunk(
   "auth/librarycard",
   async (userId: string, thunkAPI) => {
     try {
-      const req = await axios.post("http://localhost:3000/card/", {
+      const req = await axios.post("http://localhost:8000/card/", {
         user: userId,
       });
+      console.log(req.data.libraryCard);
 
       return req.data.libraryCard;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+    } catch (e: any) {
+      const errorMessage =
+        e.response?.data?.message || "Failed to generate card";
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   },
 );
@@ -157,16 +160,19 @@ export const AuthenticationSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
+      /* --- Inside AuthenticationSlice.ts --- */
+
       .addCase(
         getLibraryCard.fulfilled,
-        (state, action: PayloadAction<ILibraryCardModel>) => {
+        (state, action: PayloadAction<any>) => {
           state.loading = false;
-          state.card = action.payload;
+
+          state.libraryCard = action.payload;
         },
       )
       .addCase(getLibraryCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = true;
       });
 
     /* --- Fetch User Cases --- */

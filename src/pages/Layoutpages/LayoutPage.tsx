@@ -2,7 +2,10 @@ import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import "./LayoutPage.css";
 import type { RootState } from "../../reducx/ReducxStrore";
-import { LoginRegisterModal } from "../../features/authnication";
+import {
+  LibraryCardModal,
+  LoginRegisterModal,
+} from "../../features/authnication";
 import { Navbar } from "../../features/Navigation";
 import { Footer } from "../../features/Navigation";
 
@@ -12,6 +15,7 @@ export default function LayoutPage() {
   return (
     <div className="layout-page">
       {state.displayLogin && <LoginRegisterModal />}
+      {state.displayLibraryCard && <LibraryCardModal />}
       <Navbar />
       <Outlet />
       <Footer />

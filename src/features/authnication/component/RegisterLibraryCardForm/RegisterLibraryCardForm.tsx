@@ -9,62 +9,65 @@ import {
 } from "../../../../reducx/slices/modelslices";
 
 export const RegisterLibraryCardForm: React.FC = () => {
-  const userState = useSelector((state: RootState) => state.authentication);
-
+  const { loggedInUser, libraryCard, isLoading } = useSelector(
+    (state: RootState) => state.authentication,
+  );
   const dispatch: AppDispatch = useDispatch();
 
   const handleCreateLibraryCard = () => {
-    if (userState.loggedInUser) {
-      dispatch(getLibraryCard(userState.loggedInUser?._id));
+    if (loggedInUser?._id) {
+      dispatch(getLibraryCard(loggedInUser._id));
     }
   };
 
   const handleLoginClick = () => {
+    // Close library modal first, then open login
     dispatch(setDisplayLibraryCard(false));
     dispatch(setDisplayLogin(true));
   };
 
   return (
-    <>
-      {userState.loggedInUser ? (
-        <div className="register-library-card-container">
+    <div className="register-library-card-container">
+      {loggedInUser ? (
+        <>
           <h3 className="register-library-card-text">
-            Welcome {userState.loggedInUser.firstName}{" "}
-            {userState.loggedInUser.lastName}!
+            Welcome, {loggedInUser.firstName}!
           </h3>
-          <h5 className="register-library-card-text">
-            To signup for a new library card, or you forgot the ID number on
-            your card, use the button below.
-          </h5>
-          {userState.libraryCard ? (
-            <p className="register-library-card-text">
-              Your library card number: {userState.libraryCard}
-            </p>
+          <p className="register-library-card-subtext">
+            To sign up for a new library card or retrieve your ID, use the
+            button below.
+          </p>
+
+          {libraryCard ? (
+            <div className="library-card-display">
+              <span className="card-label">Your Library Card Number:</span>
+              <span className="card-number">{libraryCard}</span>
+            </div>
           ) : (
             <button
               className="register-library-modal-button"
               onClick={handleCreateLibraryCard}
+              disabled={isLoading}
             >
-              Get Library Card
+              {isLoading ? "Generating..." : "Get Library Card"}
             </button>
           )}
-        </div>
+        </>
       ) : (
-        <div className="register-library-card-container">
-          <h3 className="register-library-card-text">
-            You must be a member of the library to obtain a library card.
-          </h3>
-          <h4 className="register-library-card-text">
-            Use the button below to login to your account or register for free.
-          </h4>
+        <>
+          <h3 className="register-library-card-text">Membership Required</h3>
+          <p className="register-library-card-subtext">
+            You must be a member to obtain a library card. Please login or
+            register for free.
+          </p>
           <button
             className="register-library-modal-button"
             onClick={handleLoginClick}
           >
             Login Here
           </button>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };

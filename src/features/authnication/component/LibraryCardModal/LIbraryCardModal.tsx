@@ -3,6 +3,7 @@ import type { AppDispatch, RootState } from "../../../../reducx/ReducxStrore";
 import { useDispatch } from "react-redux";
 import { setDisplayLibraryCard } from "../../../../reducx/slices/modelslices";
 import { Modal } from "../../../../components";
+import { RegisterLibraryCardForm } from "../RegisterLibraryCardForm/RegisterLibraryCardForm";
 
 export const LibraryCardModal: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -11,5 +12,8 @@ export const LibraryCardModal: React.FC = () => {
     dispatch(setDisplayLibraryCard(false));
   };
 
-  return <Modal content={<>Library Card Modal</>} toggleModal={closeModal} />;
+  return (
+    <Modal content={<RegisterLibraryCardForm />} toggleModal={closeModal} />
+  );
 };
+ 
